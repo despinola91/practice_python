@@ -69,8 +69,8 @@ def run():
         show_result()
         letter = input(">>> Guess your letter:")
         letter = letter.lower()
-        
-        if letter == "exit":
+
+        if letter == "exit" or letter == "quit":
             exit()
         
         if letter.lower() == word.lower():
