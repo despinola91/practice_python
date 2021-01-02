@@ -35,14 +35,24 @@ def show_result():
 
 def analyze_letter(letter):
     global result
-
+    found = False
     for i in range(len(word)):
         if letter == word[i]:
+            found = True
             result[i] = word[i]
-
+    
+    if found == False:
+        print("Incorrect!")
 
 def get_random_word():
-    return "evaporate"
+    words = list()
+    with open('scrabble_words.txt', "r") as file_object:
+        for line in file_object:
+            words.append(line.strip())
+    
+    chosen_word = words[random.randint(0, 267751)]
+    print("the word is: " + chosen_word)
+    return chosen_word.lower()
 
 word = ""
 result = list()
@@ -58,9 +68,14 @@ def run():
     while True:
         show_result()
         letter = input(">>> Guess your letter:")
+        letter = letter.lower()
         
         if letter == "exit":
             exit()
+        
+        if letter.lower() == word.lower():
+            print("You guessed the word!")
+            break
 
         analyze_letter(letter)
 
