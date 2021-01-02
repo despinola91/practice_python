@@ -27,28 +27,41 @@
 
 import random
 
-def get_amount_of_letters():
-    return 5
+def show_result():
+    a = ""
+    for l in result:
+        a = a +l+" "
+    print(a+"\n")
 
-def show_spaces(num):
-    return "_ "*num
+def analyze_letter(letter):
+    global result
 
-def analyze_letter():
-    pass
+    for i in range(len(word)):
+        if letter == word[i]:
+            result[i] = word[i]
+
 
 def get_random_word():
-    pass
+    return "evaporate"
 
 word = ""
+result = list()
 
 def run():
     print("\n>>> Welcome to Hangman!")
+    global word
     word = get_random_word()
 
+    for l in word:
+        result.append("_")
+
     while True:
-        number_of_letters = get_amount_of_letters()
-        print(show_spaces(number_of_letters))
+        show_result()
         letter = input(">>> Guess your letter:")
+        
+        if letter == "exit":
+            exit()
+
         analyze_letter(letter)
 
 if __name__ == "__main__":
