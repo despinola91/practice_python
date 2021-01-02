@@ -46,12 +46,16 @@ def analyze_letter(letter):
 
 def get_random_word():
     words = list()
+    counter = 0
+    
     with open('scrabble_words.txt', "r") as file_object:
         for line in file_object:
+            counter = counter + 1
             words.append(line.strip())
     
-    chosen_word = words[random.randint(0, 267751)]
-    print("the word is: " + chosen_word)
+    chosen_word = words[random.randint(1, counter)]
+
+    print("the word is: " + chosen_word) #just a helper to be removed
     return chosen_word.lower()
 
 word = ""
@@ -59,6 +63,7 @@ result = list()
 
 def run():
     print("\n>>> Welcome to Hangman!")
+    
     global word
     word = get_random_word()
 
@@ -78,6 +83,15 @@ def run():
             break
 
         analyze_letter(letter)
+        
+        game_on = False
+        for l in result:
+            if l == "_":
+                game_on = True
+        
+        if game_on == False:
+            print("You guessed the word!")
+            break
 
 if __name__ == "__main__":
     run()
