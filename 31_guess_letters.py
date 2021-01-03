@@ -28,10 +28,10 @@
 import random
 
 def show_result():
-    a = ""
-    for l in result:
-        a = a +l+" "
-    print(a+"\n")
+    final_result = ""
+    for letter in result:
+        final_result = final_result + letter + " "
+    print(final_result + "\n")
 
 def analyze_letter(letter):
     global result
@@ -56,29 +56,36 @@ def get_random_word():
     chosen_word = words[random.randint(1, counter)]
 
     print("the word is: " + chosen_word) #just a helper to be removed
-    return chosen_word.lower()
+    return chosen_word.upper()
 
 word = ""
 result = list()
 
-def run():
+
+def init():
     print("\n>>> Welcome to Hangman!")
     
     global word
     word = get_random_word()
 
-    for l in word:
+    #Setting result variable at the beginning
+    for l in word: 
         result.append("_")
+
+def run():
+
+    init()
 
     while True:
         show_result()
-        letter = input(">>> Guess your letter:")
-        letter = letter.lower()
 
-        if letter == "exit" or letter == "quit":
+        letter = input(">>> Guess your letter:")
+        letter = letter.upper()
+
+        if letter == "EXIT" or letter == "QUIT":
             exit()
         
-        if letter.lower() == word.lower():
+        if letter == word:
             print("You guessed the word!")
             break
 
