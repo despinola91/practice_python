@@ -17,3 +17,85 @@
 #     When the player wins or loses, let them start a new game.
 #     Rather than telling the user "You have 4 incorrect guesses left", display some picture art for the Hangman. 
 #     This is challenging - do the other parts of the exercise first!
+
+import random
+
+def show_result():
+    final_result = ""
+    for letter in result:
+        final_result = final_result + letter + " "
+    print(final_result + "\n")
+
+def analyze_letter(letter):
+    global result
+    global guesses
+    
+    found = False
+    for i in range(len(word)):
+        if letter == word[i]:
+            found = True
+            result[i] = word[i]
+    
+    if found == False:
+        guesses = guesses + 1
+        print("Incorrect!")
+        print("Guesses left: " + str(6 - guesses))
+
+def get_random_word():
+    words = list()
+    counter = 0
+    
+    with open('scrabble_words.txt', "r") as file_object:
+        for line in file_object:
+            counter = counter + 1
+            words.append(line.strip())
+    
+    chosen_word = words[random.randint(1, counter)]
+
+    print("the word is: " + chosen_word) #just a helper to be removed
+    return chosen_word.upper()
+
+word = ""
+result = list()
+guesses = 0
+
+def init():
+    print("\n>>> Welcome to Hangman!")
+    
+    global word
+    word = get_random_word()
+
+    #Setting result variable at the beginning
+    for l in word: 
+        result.append("_")
+
+def run():
+
+    init()
+
+    while True:
+        show_result()
+
+        letter = input(">>> Guess your letter:")
+        letter = letter.upper()
+
+        if letter == "EXIT" or letter == "QUIT":
+            exit()
+        
+        if letter == word:
+            print("You guessed the word!")
+            break
+
+        analyze_letter(letter)
+        
+        game_on = False
+        for l in result:
+            if l == "_":
+                game_on = True
+        
+        if game_on == False:
+            print("You guessed the word!")
+            break
+
+if __name__ == "__main__":
+    run()
