@@ -29,6 +29,9 @@ def show_result():
 def analyze_letter(letter):
     global result
     global guesses
+    global used_letters
+
+    used_letters.append(letter)
     
     found = False
     for i in range(len(word)):
@@ -58,6 +61,7 @@ def get_random_word():
 word = ""
 result = list()
 guesses = 0
+used_letters = list()
 
 def init():
     print("\n>>> Welcome to Hangman!")
@@ -89,12 +93,17 @@ def run():
         analyze_letter(letter)
         
         game_on = False
+        
         for l in result:
             if l == "_":
                 game_on = True
         
         if game_on == False:
             print("You guessed the word!")
+            break
+
+        if guesses == 6:
+            print("You loose!")
             break
 
 if __name__ == "__main__":
