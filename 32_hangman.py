@@ -42,18 +42,64 @@ def analyze_letter(letter):
     if found == False:
         guesses = guesses + 1
         print("Incorrect!")
-        guesses_left = (6 - guesses)
-        if guesses_left ==  5:
-            print(hangman_5)
-        elif guesses_left ==  4:
-            print(hangman_4)
-        elif guesses_left ==  3:
-            print(hangman_3)
-        elif guesses_left ==  2:
-            print(hangman_2)
-        elif guesses_left ==  1:
-            print(hangman_1)
+        print(adjust_hangman((6 - guesses)))
         #print("Guesses left: " + str(6 - guesses))
+
+
+def adjust_hangman(guesses_left):
+    global hangman
+    if guesses_left == 5:
+        hangman = """
+             ______
+            |      |
+            |	   O    
+            |     /|\ 
+            |      |  
+            |    _/ 
+            |
+           _|_"""
+    elif guesses_left == 4:
+        hangman = """
+             ______
+            |      |
+            |	   O    
+            |     /|\ 
+            |      |  
+            |    
+            |
+           _|_"""
+    elif guesses_left == 3:
+        hangman = """
+             ______
+            |      |
+            |	   O    
+            |     /| 
+            |      |  
+            |    
+            |
+           _|_"""
+    elif guesses_left == 2:
+        hangman = """
+             ______
+            |      |
+            |	   O    
+            |      |
+            |      |  
+            |    
+            |
+           _|_"""
+    elif guesses_left == 1:
+        hangman = """
+             ______
+            |      |
+            |	   O    
+            |     
+            |      
+            |    
+            |
+           _|_"""
+    return hangman
+
 
 def get_random_word():
     words = list()
@@ -74,40 +120,16 @@ result = list()
 guesses = 0
 used_letters = list()
 
-hangman_5 = """
-       O    
-      /|\ 
-       |  
-     _/ 
-    """
+hangman = """
+    ______
+   |      |
+   |	  O    
+   |     /|\ 
+   |      |  
+   |    _/ \_
+   |
+  _|_"""
 
-hangman_4 = """
-       O    
-      /|\ 
-       |  
-     
-    """
-
-hangman_3 = """
-       O    
-      /|
-       |  
-     
-    """
-
-hangman_2 = """
-       O    
-       |
-       |  
-     
-    """
-
-hangman_1 = """
-       O    
-        
-          
-     
-    """
 
 def init():
     print("\n>>> Welcome to Hangman!")
