@@ -24,7 +24,7 @@ def show_result():
     final_result = ""
     for letter in result:
         final_result = final_result + letter + " "
-    print(final_result + "\n")
+    print("\n" + final_result + "\n")
 
 def analyze_letter(letter):
     global result
@@ -41,14 +41,24 @@ def analyze_letter(letter):
     
     if found == False:
         guesses = guesses + 1
-        print("Incorrect!")
-        print(adjust_hangman((6 - guesses)))
+        print("\nIncorrect!")
         #print("Guesses left: " + str(6 - guesses))
 
 
 def adjust_hangman(guesses_left):
-    global hangman
-    if guesses_left == 5:
+    hangman = ""
+
+    if guesses_left == 6:
+        hangman = """
+             ______
+            |      |
+            |	   O    
+            |     /|\ 
+            |      |  
+            |    _/ \_
+            |
+           _|_"""
+    elif guesses_left == 5:
         hangman = """
              ______
             |      |
@@ -100,7 +110,6 @@ def adjust_hangman(guesses_left):
            _|_"""
     return hangman
 
-
 def get_random_word():
     words = list()
     counter = 0
@@ -112,23 +121,13 @@ def get_random_word():
     
     chosen_word = words[random.randint(1, counter)]
 
-    print("the word is: " + chosen_word) #just a helper to be removed
+    print("\n/// the word is: " + chosen_word + "///\n") #just a helper to be removed
     return chosen_word.upper()
 
 word = ""
 result = list()
 guesses = 0
 used_letters = list()
-
-hangman = """
-    ______
-   |      |
-   |	  O    
-   |     /|\ 
-   |      |  
-   |    _/ \_
-   |
-  _|_"""
 
 
 def init():
@@ -146,9 +145,10 @@ def run():
     init()
 
     while True:
+        print(adjust_hangman((6 - guesses)))
         show_result()
 
-        letter = input(">>> Guess your letter:")
+        letter = input(">>> Guess your letter: ")
         letter = letter.upper()
 
         if letter == "EXIT" or letter == "QUIT":
