@@ -40,9 +40,9 @@ def analyze_letter(letter):
             result[i] = word[i]
     
     if found == False:
-        guesses = guesses + 1
+        if letter not in used_letters:
+            guesses = guesses + 1
         print("\nIncorrect!")
-        #print("Guesses left: " + str(6 - guesses))
 
 
 def adjust_hangman(guesses_left):
@@ -134,11 +134,20 @@ def init():
     print("\n>>> Welcome to Hangman!")
     
     global word
+    global guesses
+    global result
+    global used_letters
+
     word = get_random_word()
 
     #Setting result variable at the beginning
     for l in word: 
         result.append("_")
+    
+    guesses = 0
+
+    result = list()
+    used_letters = list()
 
 def run():
 
@@ -168,11 +177,20 @@ def run():
         
         if game_on == False:
             print("You guessed the word!")
-            break
+            new_game = input("Do you want to start a new game? (yes/no) ")
+            if new_game == "no":
+                break
+            elif new_game == "yes":
+                init()
 
         if guesses == 6:
             print("You loose!")
-            break
+            new_game = input("Do you want to start a new game? (yes/no) ")
+            if new_game == "no":
+                break
+            elif new_game == "yes":
+                init()
+
 
 if __name__ == "__main__":
     run()
