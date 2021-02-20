@@ -20,8 +20,6 @@ def load_birthdays():
     with open(fileName, "r") as f:
         birthdays = json.load(f)
 
-    return birthdays
-
 
 def save_birthdays(birthdays):
     with open(fileName, "w") as f:
