@@ -31,7 +31,9 @@ def analyze_letter(letter):
     global guesses
     global used_letters
 
-    used_letters.append(letter)
+    if letter == word:
+        print("You guessed the word!")
+                
     
     found = False
     for i in range(len(word)):
@@ -44,9 +46,11 @@ def analyze_letter(letter):
             guesses = guesses + 1
         print("\nIncorrect!")
 
+    used_letters.append(letter)
 
-def adjust_hangman(guesses_left):
+def get_current_hangman():
     hangman = ""
+    guesses_left = 6 - guesses
 
     if guesses_left == 6:
         hangman = """
@@ -120,14 +124,21 @@ def get_random_word():
             words.append(line.strip())
     
     chosen_word = words[random.randint(1, counter)]
-
+    chosen_word = chosen_word.upper()
     print("\n/// the word is: " + chosen_word + "///\n") #just a helper to be removed
-    return chosen_word.upper()
+    return chosen_word
 
 word = ""
 result = list()
 guesses = 0
 used_letters = list()
+
+def init_result():
+    global result
+    result = list()
+    #Setting result variable at the beginning
+    for l in word: 
+        result.append("_")
 
 
 def init():
@@ -135,37 +146,32 @@ def init():
     
     global word
     global guesses
-    global result
     global used_letters
 
     word = get_random_word()
-
-    #Setting result variable at the beginning
-    for l in word: 
-        result.append("_")
-    
     guesses = 0
-
-    result = list()
     used_letters = list()
+
+    init_result()
+
+def show_hangman():
+    print(get_current_hangman())
+
+def check_exit_word(letter):
+    if letter == "EXIT" or letter == "QUIT":
+        exit()
 
 def run():
 
     init()
 
     while True:
-        print(adjust_hangman((6 - guesses)))
+        show_hangman()
         show_result()
 
         letter = input(">>> Guess your letter: ")
         letter = letter.upper()
-
-        if letter == "EXIT" or letter == "QUIT":
-            exit()
-        
-        if letter == word:
-            print("You guessed the word!")
-            break
+        check_exit_word(letter)
 
         analyze_letter(letter)
         
