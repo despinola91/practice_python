@@ -23,7 +23,7 @@ import random
 word = ""
 result = list()
 guesses = 0
-used_letters = list()
+used_letters = set()
 
 def show_result():
     final_result = ""
@@ -51,7 +51,7 @@ def analyze_letter(letter):
             guesses = guesses + 1
         print("\nIncorrect!")
 
-    used_letters.append(letter)
+    used_letters.add(letter)
 
 def get_current_hangman():
     hangman = ""
@@ -149,7 +149,7 @@ def init():
 
     word = get_random_word()
     guesses = 0
-    used_letters = list()
+    used_letters = set()
 
     init_result()
 
