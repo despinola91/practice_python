@@ -20,6 +20,11 @@
 
 import random
 
+word = ""
+result = list()
+guesses = 0
+used_letters = list()
+
 def show_result():
     final_result = ""
     for letter in result:
@@ -125,13 +130,8 @@ def get_random_word():
     
     chosen_word = words[random.randint(1, counter)]
     chosen_word = chosen_word.upper()
-    print("\n/// the word is: " + chosen_word + "///\n") #just a helper to be removed
+    #print("\n/// the word is: " + chosen_word + "///\n") #just a helper to be removed
     return chosen_word
-
-word = ""
-result = list()
-guesses = 0
-used_letters = list()
 
 def init_result():
     global result
@@ -139,7 +139,6 @@ def init_result():
     #Setting result variable at the beginning
     for l in word: 
         result.append("_")
-
 
 def init():
     print("\n>>> Welcome to Hangman!")
